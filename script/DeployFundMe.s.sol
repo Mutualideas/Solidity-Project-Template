@@ -13,7 +13,7 @@ contract DeployFundMe is Script {
 
         // Broadcast start
         vm.startBroadcast();
-        FundMe fundMe = new FundMe(0x694AA1769357215DE4FAC081bf1f309aDC325306);
+        FundMe fundMe = new FundMe(ethUsdPriceFeed);
         vm.stopBroadcast();
         return fundMe;
     }

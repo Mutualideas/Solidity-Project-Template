@@ -18,6 +18,10 @@ contract HelperConfig is Script {
     // Variable which direct towards the appropriate Config
     NetworkConfig public activeNetworkConfig;
 
+    struct NetworkConfig {
+        address priceFeed; // ETH/USD price feed address
+    }
+
     uint8 public constant DECIMALS = 8;
     int256 public constant INITIAL_PRICE = 2000e8;
 
@@ -25,16 +29,12 @@ contract HelperConfig is Script {
         // Sepolia ChainID - 11155111
         if (block.chainid == 11155111) {
             activeNetworkConfig = getSepoliaEthConfig();
-            // Eth Mainnet ChainID - 1
+        // Eth Mainnet ChainID - 1
         } else if (block.chainid == 1) {
             activeNetworkConfig = getMainnetEthConfig();
         } else {
             activeNetworkConfig = getOrCreateAnvilEthConfig();
         }
-    }
-
-    struct NetworkConfig {
-        address priceFeed; // ETH/USD price feed address
     }
 
     function getSepoliaEthConfig() public pure returns (NetworkConfig memory) {

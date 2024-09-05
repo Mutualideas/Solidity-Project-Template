@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.19;
+pragma solidity ^0.8.19;
 
 import {AggregatorV3Interface} from "@chainlink/contracts/src/v0.8/shared/interfaces/AggregatorV3Interface.sol";
 import {PriceConverter} from "./PriceConverter.sol";
@@ -7,22 +7,17 @@ import {PriceConverter} from "./PriceConverter.sol";
 // 3. Interfaces, Libraries, Contracts
 error FundMe__NotOwner();
 
-/**
- * @title A sample Funding Contract
- * @author Patrick Collins
- * @notice This contract is for creating a sample funding contract
- * @dev This implements price feeds as our library
- */
 contract FundMe {
     // Type Declarations
     using PriceConverter for uint256;
 
     // State variables
-    uint256 public constant MINIMUM_USD = 5 * 10 ** 18;
-    address public immutable i_owner;
-    address[] private s_funders;
-    mapping(address => uint256) private s_addressToAmountFunded;
+    uint256 public constant MINIMUM_USD = 5e18;
+    address private immutable i_owner;
     AggregatorV3Interface private s_priceFeed;
+
+    mapping(address => uint256) private s_addressToAmountFunded;
+    address[] private s_funders;
 
     // Events (we have none!)
 
@@ -50,6 +45,7 @@ contract FundMe {
 
     /// @notice Funds our contract based on the ETH/USD price
     function fund() public payable {
+        // more than min. ammount or else TX reverts
         require(
             msg.value.getConversionRate(s_priceFeed) >= MINIMUM_USD,
             "You need to spend more ETH!"
@@ -92,10 +88,7 @@ contract FundMe {
         require(success);
     }
 
-    /**
-     * Getter Functions
-     */
-
+    //Getter Functions
     /**
      * @notice Gets the amount that an address has funded
      *  @param fundingAddress the address of the funder
