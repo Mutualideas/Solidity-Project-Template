@@ -12,6 +12,7 @@ contract FundMeTest is Test {
     address USER = makeAddr("user");
     uint256 constant SEND_VALUE = 0.1 ether;
     uint256 constant STARTING_BALANCE = 10 ether;
+    uint256 constant GAS_PRICE = 1;
 
     modifier funded() {
         vm.prank(USER); // The next TX will be sent by USER
@@ -61,14 +62,19 @@ contract FundMeTest is Test {
         fundMe.withdraw();
     }
 
-    function singleFunderTestWithdrawal() public funded {
+    function testSingleFunderWithdrawal() public funded {
         // Arrange
         uint256 startingOwnerBalance = fundMe.getOwner().balance;
         uint256 startingFundMeBalance = address(fundMe).balance;
 
         // Act
+        // uint256 gasStart = gasleft(); // gasleft() is a built in solidity function to get the remaining amount of gas for the current transaction
+        // vm.txGasPrice(GAS_PRICE);
         vm.prank(fundMe.getOwner());
         fundMe.withdraw();
+        // uint256 gasEnd = gasleft();
+        // uint256 gasUsed = (gasStart - gasEnd) * tx.gasprice; // gasprice is a built in solidity function to get the current gas price
+        // console.log(gasUsed);
 
         // Assert
         uint256 endingOwnerBalance = fundMe.getOwner().balance;
@@ -80,7 +86,7 @@ contract FundMeTest is Test {
         );
     }
 
-    function multipleFunderTestWithdrawal() public funded {
+    function testMultipleFunderWithdrawal() public funded {
         // Arrange
         uint160 numberOfFunders = 10; // uint160 is required to generate addresses from an interger
         uint160 startingFunderIndex = 1; // Sometimes 0 reverts, so best to test with 1
