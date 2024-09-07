@@ -1,66 +1,39 @@
-## Foundry
+# About
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+**This repository serves as a personal library and learning platform for myself. It is designed to be a refresher project example for myself on Solidity and smart contract development.**
 
-Foundry consists of:
+This project was developed with help from Patrick Collins's Foundry Fundamentals course on Cyfrin Updraft. Numerous comments have been transcribed from his excellent explanations of the inner workings of Solidity.
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+## Content
+Library encompasses a variety of Solidity contracts and development practices including:
+- Fund Storage & Withdrawal Contract
+- Deployment Scripts
+- Reminders & Explanatory Comments for Solidity Syntax
+- Library Remappings
+- Unit & Integration Tests
+- Makefile
+- Mock Contract
 
-## Documentation
+## Requirements
+- [Foundry](https://github.com/foundry-rs/foundry)
+- [Make](https://www.gnu.org/software/make/) 
 
-https://book.getfoundry.sh/
+## Contracts Utilized 
+- [Foundry DevOps](https://github.com/Cyfrin/foundry-devops) 
+- [Chainlink Brownie Contracts](https://github.com/smartcontractkit/chainlink-brownie-contracts) 
 
-## Usage
+## Quickstart
+1. Clone the repo:
+    ```bash
+    git clone https://github.com/Mutualideas/Simple-Solidity-Project-Template
+    ```
 
-### Build
+2. Test Contract
+    ```
+    forge test
+    ```
 
-```shell
-$ forge build
-```
-
-### Test
-
-```shell
-$ forge test
-```
-
-### Format
-
-```shell
-$ forge fmt
-```
-
-### Gas Snapshots
-
-```shell
-$ forge snapshot
-```
-
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+3. Build Contract
+   ```
+   forge build
+   ```
